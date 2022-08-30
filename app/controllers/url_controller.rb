@@ -10,9 +10,8 @@ class URLController < ActionController::API
   # if none exists return no_content
   def redirect
     original_url = Rails.cache.read(url_param)
-    # TODO: Vailidate url param
     if original_url
-      redirect_to original_url, status: :moved_permanently
+      redirect_to with_protocol(original_url), status: :moved_permanently
     else
       render status: :no_content
     end
@@ -22,6 +21,7 @@ class URLController < ActionController::API
   # if so, it will return the matching short url, if not a new one is generated,
   # stored and returned.
   def shorten
+    # TODO: Vailidate url param
     url = trim_url(url_param)
     existing_short_url = retrieve_short_url(url)
     if existing_short_url

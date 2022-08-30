@@ -1,3 +1,26 @@
-// Place all the styles related to the Homepage controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.container {
+  display: flex;
+  justify-content: center;
+  padding-top: 20vh;
+}
+
+.url-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .url-form-row {
+ 
+    .url-list-wrapper {
+      height: 50vh;
+      width: 400px;
+      background-color: lightgray;
+      padding: 10px;
+      overflow: auto;
+      margin-top: 20px;
+    }
+  }
+
+
+}

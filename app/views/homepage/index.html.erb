@@ -1,0 +1,17 @@
+<div class='container'>
+  <div class='url-form-wrapper'>
+    <div class='url-form-row'>
+      <%= form_with url: root_path, local: false, id: 'url-form', data: {rootUrl: root_url} do |form| %>
+        <%= label_tag 'url-input', 'Enter URL to Shorten:' %>
+        <%= form.text_field :url, class: 'url-input' %>
+        <%= form.submit "Shorten", class: 'url-form-button' %>
+      <% end %>
+    </div>
+    <div class='url-form-row'>
+      <div class='url-list-wrapper'>
+      <ul class='url-list'>
+      </ul>
+    </div>
+  </div>
+</div>
+<%= javascript_pack_tag 'url_shortener' %>
