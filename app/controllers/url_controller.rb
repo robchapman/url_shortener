@@ -1,6 +1,7 @@
-class URLController < ActionController::API
+# frozen_string_literal: true
 
-  SHORT_URL_LENGTH = 5 
+class URLController < ActionController::API
+  SHORT_URL_LENGTH = 5
   SHORT_URL_CHAR_SET = ('a'..'z').to_a
 
   before_action :load_url_cache, only: [:shorten]
@@ -44,11 +45,11 @@ class URLController < ActionController::API
   def trim_url(url)
     url = url.split('https://').last
     url = url.split('http://').last
-    url = url.split(/^www\./).last
+    url.split(/^www\./).last
   end
 
   def with_protocol(url)
-    'http://' + url
+    "http://#{url}"
   end
 
   # Loads url cache items as array
@@ -56,19 +57,20 @@ class URLController < ActionController::API
   def load_url_cache
     @url_cache = []
     index = 0
-    loop do 
+    loop do
       key = Rails.cache.read(index)
       break unless key
-      @url_cache << {"#{key}": Rails.cache.read(key)}
+
+      @url_cache << { "#{key}": Rails.cache.read(key) }
       index += 1
     end
   end
 
   def retrieve_short_url(url)
     short_url = nil
-    @url_cache.each do |hash| 
+    @url_cache.each do |hash|
       if url == hash.values.first
-        short_url = hash.keys.first 
+        short_url = hash.keys.first
         break
       end
     end
@@ -82,12 +84,10 @@ class URLController < ActionController::API
 
   # TODO: For larger db, increment length when all in use
   # or could repace with a meaningful short string
-  def generate_short_url(url)
+  def generate_short_url(_url)
     short_urls = @url_cache.map { |hash| hash.keys.first }
     new_short_url = random_string(SHORT_URL_LENGTH)
-    while short_urls.include?(new_short_url) do
-      new_short_url = random_string(SHORT_URL_LENGTH)
-    end
+    new_short_url = random_string(SHORT_URL_LENGTH) while short_urls.include?(new_short_url)
     new_short_url
   end
 
@@ -95,7 +95,7 @@ class URLController < ActionController::API
   def random_string(size)
     SHORT_URL_CHAR_SET
       .flat_map { |item| Array.new((size / SHORT_URL_CHAR_SET.size) + 1, item) }
-      .shuffle[0,size].join
+      .shuffle[0, size].join
   end
 
   # TODO: ideally would roll back cache write if first fails
