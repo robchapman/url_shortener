@@ -18,10 +18,9 @@ gem 'psych', '< 4'
 
 group :development, :test do
   gem 'pry'
-  gem 'rspec'
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'rubocop'end
+  gem 'rspec-rails'
+  gem 'rubocop'
+end
 
 group :development do
   gem 'listen', '~> 3.3'
