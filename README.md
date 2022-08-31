@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple web application that will take a URL string and return a shortened conversion that will redirect to the original.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+The repo includes a dockerfile, tested with docker version `20.10.14`, that will build a ruby container and run the rails on `http://localhost:3000/`.
 
-* System dependencies
+First build:
+```
+docker build -t url_shortener .
+```
 
-* Configuration
+Then run:
+```
+docker run -p 3000:3000 url_shortener
+```
 
-* Database creation
+When you navigate to `http://localhost:3000/`, you should see the url shortening form.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Thanks!
